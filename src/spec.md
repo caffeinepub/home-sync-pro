@@ -1,61 +1,27 @@
-# Home Sync Pro - Smart Home Service Website
+# Home Sync Pro
 
 ## Current State
-
-This is a new Caffeine project with:
-- Standard React + TypeScript + Tailwind frontend setup
-- shadcn/ui component library installed
-- Empty backend (no Motoko modules yet)
-- No custom application components or pages
+The website has a header with a generic Home icon and text-based branding. The header displays "Home Sync Pro" with a simple house icon from lucide-react.
 
 ## Requested Changes (Diff)
 
 ### Add
-
-**Frontend:**
-- Hero section highlighting Home Sync Pro's smart home expertise
-- Services section detailing integration and installation offerings
-- Features/benefits section explaining why customers should choose Home Sync Pro
-- Contact form for customer inquiries
-- Professional navigation header
-- Footer with company information and contact details
-- Responsive design optimized for mobile and desktop
-
-**Backend:**
-- Contact form submission API to capture customer inquiries
-- Data model for storing contact requests (name, email, phone, message, service interest)
+- Company logo image in the header navigation bar
+- Logo asset is already staged at `/assets/uploads/grok_image_1771492971249-1.jpg`
 
 ### Modify
-
-None (new project)
+- Replace the generic Home icon in the header with the uploaded company logo
+- Adjust header layout to accommodate the logo image
 
 ### Remove
-
-None (new project)
+- Generic lucide-react Home icon in the header
 
 ## Implementation Plan
-
-1. **Backend Setup:**
-   - Generate Motoko backend with contact form submission endpoint
-   - Create data structure for storing inquiry details
-
-2. **Frontend Implementation:**
-   - Create main landing page with hero, services, features, and contact sections
-   - Build reusable service card components
-   - Implement contact form with validation
-   - Add navigation and footer components
-   - Style with modern, professional design using Tailwind
-   - Ensure responsive layout for all screen sizes
-
-3. **Content Strategy:**
-   - Highlight smart home integration services (Google Home, Alexa, HomeKit, etc.)
-   - Emphasize professional installation services
-   - Show trust signals and value propositions
+1. Update `App.tsx` to replace the Home icon with an `<img>` element that references the uploaded logo
+2. Apply appropriate styling to ensure the logo displays at the correct size and maintains aspect ratio
+3. Ensure the logo works well with the existing header design and navigation
 
 ## UX Notes
-
-- **Visual Identity:** Professional, modern, tech-forward aesthetic that conveys expertise and reliability
-- **User Journey:** Visitors should immediately understand what Home Sync Pro offers and have a clear path to contact
-- **Call-to-Action:** Prominent contact form placement to capture leads
-- **Trust Building:** Clear service descriptions and professional presentation to establish credibility
-- **Mobile-First:** Majority of users likely browse on mobile devices when searching for home services
+- The logo should be clearly visible and professional
+- Maintain the existing header layout and navigation structure
+- Logo size should be proportional to the header height and not overwhelm other elements

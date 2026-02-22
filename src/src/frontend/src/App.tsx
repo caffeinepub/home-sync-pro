@@ -15,7 +15,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 import {
-  Home,
   Lock,
   Lightbulb,
   Thermometer,
@@ -150,8 +149,12 @@ function App() {
       {/* Header */}
       <header className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80 sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Home className="h-7 w-7 text-primary" />
+          <div className="flex items-center gap-3">
+            <img 
+              src="/assets/uploads/grok_image_1771492971249-1.jpg" 
+              alt="Home Sync Pro Logo" 
+              className="h-10 w-auto object-contain"
+            />
             <h1 className="text-2xl font-sans font-bold text-foreground">
               Home Sync Pro
             </h1>
@@ -482,7 +485,11 @@ function App() {
           <div className="grid md:grid-cols-3 gap-8 mb-8">
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <Home className="h-6 w-6 text-primary" />
+                <img 
+                  src="/assets/uploads/grok_image_1771492971249-1.jpg" 
+                  alt="Home Sync Pro Logo" 
+                  className="h-8 w-auto object-contain"
+                />
                 <span className="text-lg font-sans font-bold">
                   Home Sync Pro
                 </span>
@@ -523,8 +530,8 @@ function App() {
                 Contact Info
               </h5>
               <div className="space-y-1 text-sm text-muted-foreground font-body">
-                <p>Email: info@homesyncpro.com</p>
-                <p>Phone: +1 (555) 123-4567</p>
+                <p>Email: homesyncprofessional@gmail.com</p>
+                <p>Phone: (316) 413-1443</p>
               </div>
             </div>
           </div>
