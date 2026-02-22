@@ -1,27 +1,39 @@
 # Home Sync Pro
 
 ## Current State
-The website has a header with a generic Home icon and text-based branding. The header displays "Home Sync Pro" with a simple house icon from lucide-react.
+
+The platform detail pages (Google Home, Amazon Alexa, Apple HomeKit, Samsung SmartThings) display compatible devices organized by category. Each device is currently displayed as either:
+- A static image with device name below (for featured devices with images)
+- A Badge component with just the device name (for devices without images)
 
 ## Requested Changes (Diff)
 
 ### Add
-- Company logo image in the header navigation bar
-- Logo asset is already staged at `/assets/uploads/grok_image_1771492971249-1.jpg`
+- Clickable link functionality to every device listed on all platform pages
+- Official product website URLs for all devices across all four platforms
+- Interactive button/link behavior with hover states
 
 ### Modify
-- Replace the generic Home icon in the header with the uploaded company logo
-- Adjust header layout to accommodate the logo image
+- Transform device display elements into clickable links that open the manufacturer's official product page in a new tab
+- Update both image-based device displays and badge-based device displays to include link functionality
+- Maintain existing visual styling while adding interactive link behavior
 
 ### Remove
-- Generic lucide-react Home icon in the header
+- None
 
 ## Implementation Plan
-1. Update `App.tsx` to replace the Home icon with an `<img>` element that references the uploaded logo
-2. Apply appropriate styling to ensure the logo displays at the correct size and maintains aspect ratio
-3. Ensure the logo works well with the existing header design and navigation
+
+1. Add URL field to each device in the platformsData object for all four platforms (Google Home, Amazon Alexa, Apple HomeKit, Samsung SmartThings)
+2. Update the Device interface to include optional `url?: string` field
+3. Wrap device elements (both image displays and badges) in clickable link components that:
+   - Open in new tab (target="_blank" with rel="noopener noreferrer")
+   - Show appropriate hover/click visual feedback
+   - Maintain existing image/badge styling
+4. Ensure all devices have their corresponding manufacturer product page URLs
 
 ## UX Notes
-- The logo should be clearly visible and professional
-- Maintain the existing header layout and navigation structure
-- Logo size should be proportional to the header height and not overwhelm other elements
+
+- Links should open in new tabs to preserve user's browsing context
+- Hover states should clearly indicate clickability
+- Maintain current visual hierarchy and spacing
+- Device images should remain visually prominent with subtle indication of interactivity

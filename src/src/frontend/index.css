@@ -76,6 +76,10 @@
     --sidebar-ring: 0.55 0.18 200;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   * {
     @apply border-border;
   }
