@@ -167,6 +167,14 @@ export function RootLayout() {
                 <p>Email: homesyncprofessional@gmail.com</p>
                 <p>Phone: (316) 413-1443</p>
               </div>
+              <div className="pt-2">
+                <a
+                  href="/admin"
+                  className="text-sm text-primary hover:underline font-medium"
+                >
+                  Admin Portal
+                </a>
+              </div>
             </div>
           </div>
 

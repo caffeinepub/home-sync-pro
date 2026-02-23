@@ -2,38 +2,48 @@
 
 ## Current State
 
-The platform detail pages (Google Home, Amazon Alexa, Apple HomeKit, Samsung SmartThings) display compatible devices organized by category. Each device is currently displayed as either:
-- A static image with device name below (for featured devices with images)
-- A Badge component with just the device name (for devices without images)
+The website has:
+- Home page with services showcase and consultation form
+- Platform-specific pages (Google Home, Amazon Alexa, Apple HomeKit, Samsung SmartThings)
+- Contact form that submits data to backend via `useSubmitContactForm` hook
+- Footer with email contact info only (no phone number)
+- Backend stores consultation form submissions
+
+The user cannot currently view or retrieve the consultation form submissions that are stored in the backend.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Clickable link functionality to every device listed on all platform pages
-- Official product website URLs for all devices across all four platforms
-- Interactive button/link behavior with hover states
+- Admin page to view all consultation inquiries from the backend
+- Navigation link to access the admin page
+- Display all submitted consultation data: name, email, phone, service interest, message, and submission timestamp
+- Search/filter functionality to find specific inquiries
+- Ability to export or copy inquiry details
 
 ### Modify
-- Transform device display elements into clickable links that open the manufacturer's official product page in a new tab
-- Update both image-based device displays and badge-based device displays to include link functionality
-- Maintain existing visual styling while adding interactive link behavior
+- Backend API to include a query function that retrieves all stored consultation inquiries
 
 ### Remove
-- None
+- Nothing to remove
 
 ## Implementation Plan
 
-1. Add URL field to each device in the platformsData object for all four platforms (Google Home, Amazon Alexa, Apple HomeKit, Samsung SmartThings)
-2. Update the Device interface to include optional `url?: string` field
-3. Wrap device elements (both image displays and badges) in clickable link components that:
-   - Open in new tab (target="_blank" with rel="noopener noreferrer")
-   - Show appropriate hover/click visual feedback
-   - Maintain existing image/badge styling
-4. Ensure all devices have their corresponding manufacturer product page URLs
+1. **Backend Changes**
+   - Add a query function to retrieve all consultation form submissions with timestamps
+   - Return inquiries in reverse chronological order (newest first)
+
+2. **Frontend Changes**
+   - Create new `/admin` route and AdminPage component
+   - Add navigation link to admin page in header/footer
+   - Display inquiries in a table or card layout with all submission details
+   - Add basic search/filter by name, email, or service type
+   - Include timestamp for each submission
+   - Make inquiry details easy to copy for follow-up
 
 ## UX Notes
 
-- Links should open in new tabs to preserve user's browsing context
-- Hover states should clearly indicate clickability
-- Maintain current visual hierarchy and spacing
-- Device images should remain visually prominent with subtle indication of interactivity
+- Admin page should be simple and functional
+- Table format works well for desktop, card layout for mobile
+- Show most recent inquiries first
+- Include clear labels for all fields
+- Make email addresses and phone numbers clickable (mailto: and tel: links)

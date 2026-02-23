@@ -3,6 +3,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { RootLayout } from "./components/RootLayout";
 import { HomePage } from "./pages/HomePage";
 import { PlatformPage } from "./pages/PlatformPage";
+import { AdminPage } from "./pages/AdminPage";
 
 // Root route with layout
 const rootRoute = createRootRoute({
@@ -28,8 +29,15 @@ const platformRoute = createRoute({
   component: PlatformPage,
 });
 
+// Admin page route
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin",
+  component: AdminPage,
+});
+
 // Create route tree
-const routeTree = rootRoute.addChildren([indexRoute, platformRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, platformRoute, adminRoute]);
 
 // Create router instance
 const router = createRouter({ routeTree });
