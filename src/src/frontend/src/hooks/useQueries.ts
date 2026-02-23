@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useActor } from "./useActor";
-import { ServiceType, ContactSubmission } from "../backend";
+import { ServiceType, ContactInquiry } from "../backend";
 
 export function useSubmitContactForm() {
   const { actor } = useActor();
@@ -15,7 +15,7 @@ export function useSubmitContactForm() {
       serviceInterest: ServiceType;
     }) => {
       if (!actor) throw new Error("Actor not initialized");
-      return actor.submitContactForm(
+      return actor.submitContactInquiry(
         data.name,
         data.email,
         data.phone,
@@ -24,7 +24,7 @@ export function useSubmitContactForm() {
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["submissions"] });
+      queryClient.invalidateQueries({ queryKey: ["inquiries"] });
     },
   });
 }
@@ -32,11 +32,11 @@ export function useSubmitContactForm() {
 export function useGetAllSubmissions() {
   const { actor, isFetching } = useActor();
   
-  return useQuery<ContactSubmission[]>({
-    queryKey: ["submissions"],
+  return useQuery<ContactInquiry[]>({
+    queryKey: ["inquiries"],
     queryFn: async () => {
       if (!actor) return [];
-      return actor.getAllSubmissions();
+      return actor.getAllInquiries();
     },
     enabled: !!actor && !isFetching,
   });

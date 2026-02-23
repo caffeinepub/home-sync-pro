@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
+import { useNavigate } from "@tanstack/react-router";
 import { useGetAllSubmissions } from "../hooks/useQueries";
-import { ContactSubmission, ServiceType } from "../backend";
+import { useInternetIdentity } from "../hooks/useInternetIdentity";
+import { ContactInquiry, ServiceType } from "../backend";
 import {
   Table,
   TableBody,
@@ -26,7 +28,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Loader2, Search, X, Mail, Phone } from "lucide-react";
+import { Loader2, Search, X, Mail, Phone, LogOut } from "lucide-react";
 
 const SERVICE_TYPE_LABELS: Record<ServiceType, string> = {
   [ServiceType.lighting]: "Lighting",
@@ -55,9 +57,16 @@ function formatTimestamp(timestamp: bigint): string {
 }
 
 export function AdminPage() {
+  const navigate = useNavigate();
+  const { clear: logout } = useInternetIdentity();
   const { data: submissions, isLoading, error } = useGetAllSubmissions();
   const [searchQuery, setSearchQuery] = useState("");
   const [serviceFilter, setServiceFilter] = useState<string>("all");
+
+  const handleLogout = () => {
+    logout();
+    navigate({ to: "/" });
+  };
 
   const filteredSubmissions = useMemo(() => {
     if (!submissions) return [];
@@ -120,14 +129,24 @@ export function AdminPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 space-y-6">
-      {/* Header */}
-      <div>
-        <h1 className="text-4xl font-sans font-bold text-foreground mb-2">
-          Consultation Submissions
-        </h1>
-        <p className="text-muted-foreground font-body">
-          View and manage all customer consultation inquiries
-        </p>
+      {/* Header with Logout */}
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-4xl font-sans font-bold text-foreground mb-2">
+            Consultation Submissions
+          </h1>
+          <p className="text-muted-foreground font-body">
+            View and manage all customer consultation inquiries
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          onClick={handleLogout}
+          className="flex items-center gap-2"
+        >
+          <LogOut className="h-4 w-4" />
+          Logout
+        </Button>
       </div>
 
       {/* Filters */}

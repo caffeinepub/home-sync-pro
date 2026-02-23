@@ -10,7 +10,7 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface ContactSubmission {
+export interface ContactInquiry {
   'name' : string,
   'email' : string,
   'serviceInterest' : ServiceType,
@@ -24,9 +24,21 @@ export type ServiceType = { 'entertainment' : null } |
   { 'climateControl' : null } |
   { 'lighting' : null } |
   { 'energyManagement' : null };
+export interface UserProfile { 'name' : string, 'email' : string }
+export type UserRole = { 'admin' : null } |
+  { 'user' : null } |
+  { 'guest' : null };
 export interface _SERVICE {
-  'getAllSubmissions' : ActorMethod<[], Array<ContactSubmission>>,
-  'submitContactForm' : ActorMethod<
+  '_initializeAccessControlWithSecret' : ActorMethod<[string], undefined>,
+  'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'getAllInquiries' : ActorMethod<[], Array<ContactInquiry>>,
+  'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
+  'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
+  'isCallerAdmin' : ActorMethod<[], boolean>,
+  'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'searchInquiries' : ActorMethod<[string], Array<ContactInquiry>>,
+  'submitContactInquiry' : ActorMethod<
     [string, string, string, string, ServiceType],
     undefined
   >,

@@ -4,14 +4,17 @@ import { RootLayout } from "./components/RootLayout";
 import { HomePage } from "./pages/HomePage";
 import { PlatformPage } from "./pages/PlatformPage";
 import { AdminPage } from "./pages/AdminPage";
+import { LoginPage } from "./pages/LoginPage";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import { AuthProvider } from "./contexts/AuthContext";
 
 // Root route with layout
 const rootRoute = createRootRoute({
   component: () => (
-    <>
+    <AuthProvider>
       <Toaster />
       <RootLayout />
-    </>
+    </AuthProvider>
   ),
 });
 
@@ -29,15 +32,26 @@ const platformRoute = createRoute({
   component: PlatformPage,
 });
 
-// Admin page route
+// Login page route
+const loginRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/login",
+  component: LoginPage,
+});
+
+// Admin page route (protected)
 const adminRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/admin",
-  component: AdminPage,
+  component: () => (
+    <ProtectedRoute>
+      <AdminPage />
+    </ProtectedRoute>
+  ),
 });
 
 // Create route tree
-const routeTree = rootRoute.addChildren([indexRoute, platformRoute, adminRoute]);
+const routeTree = rootRoute.addChildren([indexRoute, platformRoute, loginRoute, adminRoute]);
 
 // Create router instance
 const router = createRouter({ routeTree });

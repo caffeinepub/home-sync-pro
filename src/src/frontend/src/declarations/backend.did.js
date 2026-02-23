@@ -8,6 +8,11 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
+export const UserRole = IDL.Variant({
+  'admin' : IDL.Null,
+  'user' : IDL.Null,
+  'guest' : IDL.Null,
+});
 export const ServiceType = IDL.Variant({
   'entertainment' : IDL.Null,
   'security' : IDL.Null,
@@ -16,7 +21,7 @@ export const ServiceType = IDL.Variant({
   'lighting' : IDL.Null,
   'energyManagement' : IDL.Null,
 });
-export const ContactSubmission = IDL.Record({
+export const ContactInquiry = IDL.Record({
   'name' : IDL.Text,
   'email' : IDL.Text,
   'serviceInterest' : ServiceType,
@@ -24,10 +29,30 @@ export const ContactSubmission = IDL.Record({
   'timestamp' : IDL.Int,
   'phone' : IDL.Text,
 });
+export const UserProfile = IDL.Record({
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+});
 
 export const idlService = IDL.Service({
-  'getAllSubmissions' : IDL.Func([], [IDL.Vec(ContactSubmission)], ['query']),
-  'submitContactForm' : IDL.Func(
+  '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+  'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'getAllInquiries' : IDL.Func([], [IDL.Vec(ContactInquiry)], ['query']),
+  'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+  'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getUserProfile' : IDL.Func(
+      [IDL.Principal],
+      [IDL.Opt(UserProfile)],
+      ['query'],
+    ),
+  'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+  'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'searchInquiries' : IDL.Func(
+      [IDL.Text],
+      [IDL.Vec(ContactInquiry)],
+      ['query'],
+    ),
+  'submitContactInquiry' : IDL.Func(
       [IDL.Text, IDL.Text, IDL.Text, IDL.Text, ServiceType],
       [],
       [],
@@ -37,6 +62,11 @@ export const idlService = IDL.Service({
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
+  const UserRole = IDL.Variant({
+    'admin' : IDL.Null,
+    'user' : IDL.Null,
+    'guest' : IDL.Null,
+  });
   const ServiceType = IDL.Variant({
     'entertainment' : IDL.Null,
     'security' : IDL.Null,
@@ -45,7 +75,7 @@ export const idlFactory = ({ IDL }) => {
     'lighting' : IDL.Null,
     'energyManagement' : IDL.Null,
   });
-  const ContactSubmission = IDL.Record({
+  const ContactInquiry = IDL.Record({
     'name' : IDL.Text,
     'email' : IDL.Text,
     'serviceInterest' : ServiceType,
@@ -53,10 +83,27 @@ export const idlFactory = ({ IDL }) => {
     'timestamp' : IDL.Int,
     'phone' : IDL.Text,
   });
+  const UserProfile = IDL.Record({ 'name' : IDL.Text, 'email' : IDL.Text });
   
   return IDL.Service({
-    'getAllSubmissions' : IDL.Func([], [IDL.Vec(ContactSubmission)], ['query']),
-    'submitContactForm' : IDL.Func(
+    '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
+    'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'getAllInquiries' : IDL.Func([], [IDL.Vec(ContactInquiry)], ['query']),
+    'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
+    'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getUserProfile' : IDL.Func(
+        [IDL.Principal],
+        [IDL.Opt(UserProfile)],
+        ['query'],
+      ),
+    'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
+    'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'searchInquiries' : IDL.Func(
+        [IDL.Text],
+        [IDL.Vec(ContactInquiry)],
+        ['query'],
+      ),
+    'submitContactInquiry' : IDL.Func(
         [IDL.Text, IDL.Text, IDL.Text, IDL.Text, ServiceType],
         [],
         [],

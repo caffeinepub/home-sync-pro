@@ -8,9 +8,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Heart, ChevronDown } from "lucide-react";
 import { SiGoogle, SiAmazon, SiApple, SiSamsung } from "react-icons/si";
+import { useAuth } from "../contexts/AuthContext";
 
 export function RootLayout() {
   const navigate = useNavigate();
+  const { isAuthenticated, isAdmin } = useAuth();
 
   const platforms = [
     {
@@ -167,14 +169,16 @@ export function RootLayout() {
                 <p>Email: homesyncprofessional@gmail.com</p>
                 <p>Phone: (316) 413-1443</p>
               </div>
-              <div className="pt-2">
-                <a
-                  href="/admin"
-                  className="text-sm text-primary hover:underline font-medium"
-                >
-                  Admin Portal
-                </a>
-              </div>
+              {isAuthenticated && isAdmin && (
+                <div className="pt-2">
+                  <a
+                    href="/admin"
+                    className="text-sm text-primary hover:underline font-medium"
+                  >
+                    Admin Portal
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
